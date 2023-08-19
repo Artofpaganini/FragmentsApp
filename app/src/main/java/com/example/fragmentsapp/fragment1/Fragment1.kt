@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import com.example.fragmentsapp.R
 import com.example.fragmentsapp.databinding.Fragment1Binding
 import com.example.fragmentsapp.fragment2.Fragment2
@@ -20,7 +21,7 @@ internal class Fragment1 : Fragment(R.layout.fragment_1) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context !is Fragment1ButtonClickListener){
+        if (context !is Fragment1ButtonClickListener) {
             throw RuntimeException("Message Error")
         }
     }
@@ -37,13 +38,28 @@ internal class Fragment1 : Fragment(R.layout.fragment_1) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val newText = arguments?.getString(FRAGMENT_1_NEW_TEXT_EXTRA_KEY)
-        if(!newText.isNullOrEmpty()){
+        if (!newText.isNullOrEmpty()) {
             binding.textFragment1.text = newText
-
         }
         binding.buttonFragment1.setOnClickListener {
-//            (requireActivity() as Fragment1ButtonClickListener).goToFragment2()
-            (requireContext() as Fragment1ButtonClickListener).goToFragment2WithNewText("New Text Here")
+            //            (requireActivity() as Fragment1ButtonClickListener).goToFragment2()
+            (requireContext() as Fragment1ButtonClickListener)
+                .goToFragment2WithNewText(binding.textFragment1.text.toString())
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        initFragmentResultListener()
+
+    }
+    private fun initFragmentResultListener() {
+        setFragmentResultListener(FRAGMENT_1_NEW_DATA_REQUEST_KEY) { requestKey, bundle ->
+            if (requestKey != FRAGMENT_1_NEW_DATA_REQUEST_KEY) return@setFragmentResultListener
+            if (bundle.containsKey(FRAGMENT_1_NEW_DATA_BUNDLE_KEY)) {
+                val text = bundle.getString(FRAGMENT_1_NEW_DATA_BUNDLE_KEY)
+                binding.textFragment1.text = text
+            }
         }
     }
 
@@ -54,6 +70,9 @@ internal class Fragment1 : Fragment(R.layout.fragment_1) {
 
     companion object {
         const val FRAGMENT_1_TAG = "Fragment1"
+        const val FRAGMENT_1_NEW_DATA_REQUEST_KEY = "FRAGMENT_1_NEW_DATA_REQUEST_KEY"
+        const val FRAGMENT_1_NEW_DATA_BUNDLE_KEY = "FRAGMENT_1_NEW_DATA_BUNDLE_KEY"
+
         private const val FRAGMENT_1_NEW_TEXT_EXTRA_KEY = "NEW_TEXT_EXTRA_KEY"
 
         fun newInstance(): Fragment1 = Fragment1()

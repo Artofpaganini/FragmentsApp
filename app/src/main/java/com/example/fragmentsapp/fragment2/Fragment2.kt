@@ -7,8 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import com.example.fragmentsapp.R
 import com.example.fragmentsapp.databinding.Fragment2Binding
+import com.example.fragmentsapp.fragment1.Fragment1.Companion.FRAGMENT_1_NEW_DATA_BUNDLE_KEY
+import com.example.fragmentsapp.fragment1.Fragment1.Companion.FRAGMENT_1_NEW_DATA_REQUEST_KEY
 import com.example.fragmentsapp.fragment1.Fragment1ButtonClickListener
 import java.lang.RuntimeException
 
@@ -36,16 +39,13 @@ internal class Fragment2 : Fragment(R.layout.fragment_2) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.textFragment2.text = requireArguments().getString(NEW_TEXT_EXTRA_KEY)
+        binding.editTextFragment2.setText(requireArguments().getString(NEW_TEXT_EXTRA_KEY))
         binding.backToFragment1.setOnClickListener {
-            (requireActivity() as Fragment2ButtonClickListener).backToFragment1()
-        }
-
-        binding.openNewFragment1.setOnClickListener {
-//            (requireActivity() as Fragment2ButtonClickListener).openFragment1Again()
-            (requireActivity() as Fragment2ButtonClickListener)
-                .openFragment2AgainWithNewText(newText = "HELLO FROM FRAGMENT 2")
-
+            setFragmentResult(
+                FRAGMENT_1_NEW_DATA_REQUEST_KEY,
+                bundleOf(FRAGMENT_1_NEW_DATA_BUNDLE_KEY to binding.editTextFragment2.text.toString())
+            )
+            (requireActivity() as Fragment2ButtonClickListener).backToFragment1WithChanges()
         }
     }
 

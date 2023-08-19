@@ -5,11 +5,10 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/textFragment2"
+    <EditText
+        android:id="@+id/editTextFragment2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sometext_fragment_2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,17 +23,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textFragment2" />
-
-    <Button
-        android:id="@+id/openNewFragment1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Open Fragment 1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backToFragment1" />
-
+        app:layout_constraintTop_toBottomOf="@+id/editTextFragment2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
