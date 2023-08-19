@@ -5,11 +5,11 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/textFragment2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SomeText Fragment 2"
+        android:text="@string/sometext_fragment_2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +20,7 @@
         android:id="@+id/buttonFragment2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Back to Fragment 2"
+        android:text="@string/back_to_fragment_1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

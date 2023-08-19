@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.FragmentActivity
 import com.example.fragmentsapp.databinding.ActivityMainBinding
+import com.example.fragmentsapp.fragment1.Fragment1
+import com.example.fragmentsapp.fragment1.Fragment1ButtonClickListener
+import com.example.fragmentsapp.fragment2.Fragment2
 
-class MainActivity : FragmentActivity(R.layout.activity_main) {
+internal class MainActivity : FragmentActivity(R.layout.activity_main), Fragment1ButtonClickListener {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -16,15 +19,33 @@ class MainActivity : FragmentActivity(R.layout.activity_main) {
         setContentView(view)
 
         if (supportFragmentManager.findFragmentByTag(Fragment1.FRAGMENT_1_TAG) == null) {
-            Log.d("TAG", "onCreate: Fragment1 CREATED FIRST TIME")
             supportFragmentManager.beginTransaction().run {
                 val fragment1 = Fragment1.newInstance()
                 setReorderingAllowed(true)
                 add(R.id.main_fragment_container, fragment1, Fragment1.FRAGMENT_1_TAG)
+                addToBackStack(Fragment1.FRAGMENT_1_TAG)
                 commit()
             }
         }
-        Log.d("TAG", "onCreate: Fragment1 HAS ALREADY CREATED")
+    }
 
+    override fun goToFragment2() {
+        supportFragmentManager.beginTransaction().run {
+            val fragment2 = Fragment2.newInstance()
+            setReorderingAllowed(true)
+            add(R.id.main_fragment_container, fragment2, Fragment2.FRAGMENT_2_TAG)
+            addToBackStack(Fragment2.FRAGMENT_2_TAG)
+            commit()
+        }
+    }
+
+    override fun goToFragment2WithNewText(text: String) {
+        supportFragmentManager.beginTransaction().run {
+            val fragment2 = Fragment2.newInstance(newText = text)
+            setReorderingAllowed(true)
+            replace(R.id.main_fragment_container, fragment2, Fragment2.FRAGMENT_2_TAG)
+            addToBackStack(Fragment2.FRAGMENT_2_TAG)
+            commit()
+        }
     }
 }

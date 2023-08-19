@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FragmentsApp</string>
+    <string name="sometext_fragment_2">SomeText Fragment 2</string>
+    <string name="back_to_fragment_1">Back to Fragment 1</string>
 </resources>
