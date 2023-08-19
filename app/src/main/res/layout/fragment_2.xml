@@ -17,7 +17,7 @@
 
 
     <Button
-        android:id="@+id/buttonFragment2"
+        android:id="@+id/backToFragment1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/back_to_fragment_1"
@@ -25,5 +25,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textFragment2" />
+
+    <Button
+        android:id="@+id/openNewFragment1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open Fragment 1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backToFragment1" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
