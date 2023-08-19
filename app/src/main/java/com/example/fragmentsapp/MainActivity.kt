@@ -3,14 +3,10 @@ package com.example.fragmentsapp
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import com.example.fragmentsapp.databinding.ActivityMainBinding
-import com.example.fragmentsapp.fragment1.Fragment1
-import com.example.fragmentsapp.fragment1.Fragment1ButtonClickListener
-import com.example.fragmentsapp.fragment2.Fragment2
-import com.example.fragmentsapp.fragment2.Fragment2ButtonClickListener
+import com.example.fragmentsapp.fragment1.MainFragmentListener
+import com.example.fragmentsapp.fragment1.MainFragment
 
-internal class MainActivity : FragmentActivity(R.layout.activity_main),
-    Fragment1ButtonClickListener,
-    Fragment2ButtonClickListener {
+internal class MainActivity : FragmentActivity(R.layout.activity_main) {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -20,38 +16,15 @@ internal class MainActivity : FragmentActivity(R.layout.activity_main),
         val view = binding.root
         setContentView(view)
 
-        if (supportFragmentManager.findFragmentByTag(Fragment1.FRAGMENT_1_TAG) == null) {
+        if (supportFragmentManager.findFragmentByTag(MainFragment.TAG) == null) {
             supportFragmentManager.beginTransaction().run {
-                val fragment1 = Fragment1.newInstance()
+                val mainFragment = MainFragment.newInstance()
                 setReorderingAllowed(true)
-                add(R.id.main_fragment_container, fragment1, Fragment1.FRAGMENT_1_TAG)
+                add(R.id.main_fragment_container, mainFragment, MainFragment.TAG)
+                setPrimaryNavigationFragment(mainFragment)
                 //недобавляем первый фрагмент в бэкстэк
                 commit()
             }
         }
-    }
-
-    override fun goToFragment2() {
-        supportFragmentManager.beginTransaction().run {
-            val fragment2 = Fragment2.newInstance()
-            setReorderingAllowed(true)
-            add(R.id.main_fragment_container, fragment2, Fragment2.FRAGMENT_2_TAG)
-            addToBackStack(Fragment2.FRAGMENT_2_TAG)
-            commit()
-        }
-    }
-
-    override fun goToFragment2WithNewText(text: String) {
-        supportFragmentManager.beginTransaction().run {
-            val fragment2 = Fragment2.newInstance(newText = text)
-            setReorderingAllowed(true)
-            replace(R.id.main_fragment_container, fragment2, Fragment2.FRAGMENT_2_TAG)
-            addToBackStack(Fragment2.FRAGMENT_2_TAG)
-            commit()
-        }
-    }
-
-    override fun backToFragment1WithChanges() {
-        supportFragmentManager.popBackStack()
     }
 }

@@ -5,24 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textFragment1"
+    <EditText
+        android:id="@+id/editTextNestedFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SomeText Fragment 1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <Button
-        android:id="@+id/buttonFragment1"
+        android:id="@+id/buttonNestedFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Go to Fragment 2"
+        android:text="Open Dialog"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textFragment1" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextNestedFragment" />
 </androidx.constraintlayout.widget.ConstraintLayout>
