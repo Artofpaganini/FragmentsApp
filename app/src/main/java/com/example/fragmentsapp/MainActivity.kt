@@ -3,9 +3,10 @@ package com.example.fragmentsapp
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.commit
 import com.example.fragmentsapp.databinding.ActivityMainBinding
 
-class MainActivity : FragmentActivity(R.layout.activity_main) {
+class MainActivity : FragmentActivity(R.layout.activity_main), Fragment1ButtonClickListener {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -25,6 +26,19 @@ class MainActivity : FragmentActivity(R.layout.activity_main) {
             }
         }
         Log.d("TAG", "onCreate: Fragment1 HAS ALREADY CREATED")
+    }
 
+    override fun gotoFragment2() {
+        if (supportFragmentManager.findFragmentByTag(Fragment2.FRAGMENT_2_TAG) == null) {
+            supportFragmentManager.beginTransaction().run {
+                Log.d("TAG", "onCreate: Fragment2 CREATED FIRST TIME")
+                val fragment2 = Fragment2.newInstance()
+                setReorderingAllowed(true)
+                add(R.id.main_fragment_container, fragment2, Fragment2.FRAGMENT_2_TAG)
+                addToBackStack(Fragment2.FRAGMENT_2_TAG)
+                commit()
+            }
+        }
     }
 }
+

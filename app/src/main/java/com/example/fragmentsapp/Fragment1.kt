@@ -1,6 +1,8 @@
 package com.example.fragmentsapp
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +15,19 @@ class Fragment1 : Fragment(R.layout.fragment_1) {
 
     private val binding get() = _binding!!
 
+    private var listener: Fragment1ButtonClickListener? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context !is Fragment1ButtonClickListener) {
+            throw Exception("ERROR")
+        } else {
+            Log.d("TAG", "onAttach: THIS CONTEXT is LISTENER ")
+
+            listener = context
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -24,6 +39,10 @@ class Fragment1 : Fragment(R.layout.fragment_1) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.buttonFragment1.setOnClickListener {
+            Log.d("TAG", "onViewCreated: PUSH BUTTON GO TO FRAGMENT2")
+            listener?.gotoFragment2()
+        }
     }
 
     override fun onDestroyView() {
