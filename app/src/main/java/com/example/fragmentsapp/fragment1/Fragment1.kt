@@ -18,10 +18,15 @@ internal class Fragment1 : Fragment(R.layout.fragment_1) {
 
     private val binding get() = _binding!!
 
+    private var listener: Fragment1ButtonClickListener? = null
+
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context !is Fragment1ButtonClickListener){
+        if (context !is Fragment1ButtonClickListener) {
             throw RuntimeException("Message Error")
+        } else {
+            listener = context
         }
     }
 
@@ -37,13 +42,12 @@ internal class Fragment1 : Fragment(R.layout.fragment_1) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val newText = arguments?.getString(FRAGMENT_1_NEW_TEXT_EXTRA_KEY)
-        if(!newText.isNullOrEmpty()){
+        if (!newText.isNullOrEmpty()) {
             binding.textFragment1.text = newText
-
         }
         binding.buttonFragment1.setOnClickListener {
-//            (requireActivity() as Fragment1ButtonClickListener).goToFragment2()
-            (requireContext() as Fragment1ButtonClickListener).goToFragment2WithNewText("New Text Here")
+            listener?.goToFragment2()
+            //            (requireContext() as Fragment1ButtonClickListener).goToFragment2WithNewText("New Text Here")
         }
     }
 

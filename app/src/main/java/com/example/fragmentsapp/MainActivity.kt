@@ -3,6 +3,7 @@ package com.example.fragmentsapp
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
 import com.example.fragmentsapp.databinding.ActivityMainBinding
 import com.example.fragmentsapp.fragment1.Fragment1
 import com.example.fragmentsapp.fragment1.Fragment1ButtonClickListener
@@ -70,8 +71,8 @@ internal class MainActivity : FragmentActivity(R.layout.activity_main),
                 addToBackStack(Fragment1.FRAGMENT_1_TAG)
                 commit()
             }
-        } else if (supportFragmentManager.backStackEntryCount > 0) {
-            supportFragmentManager.popBackStack(Fragment1.FRAGMENT_1_TAG, 0)
+        } else {
+            supportFragmentManager.popBackStackImmediate()
             Log.w("TAG", "openFragment1Again: Fragment1 HAS TAKEN FROM BACKSTACK")
         }
     }

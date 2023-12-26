@@ -9,6 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.example.fragmentsapp.R
 import com.example.fragmentsapp.databinding.Fragment2Binding
+import com.example.fragmentsapp.fragment1.Fragment1
 import com.example.fragmentsapp.fragment1.Fragment1ButtonClickListener
 import java.lang.RuntimeException
 
@@ -18,10 +19,13 @@ internal class Fragment2 : Fragment(R.layout.fragment_2) {
 
     private val binding get() = _binding!!
 
+    private var listener: Fragment2ButtonClickListener? = null
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context !is Fragment1ButtonClickListener) {
+        if (context !is Fragment2ButtonClickListener) {
             throw RuntimeException("Message Error")
+        } else {
+            listener = context
         }
     }
 
@@ -36,15 +40,19 @@ internal class Fragment2 : Fragment(R.layout.fragment_2) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.textFragment2.text = requireArguments().getString(NEW_TEXT_EXTRA_KEY)
+//        binding.textFragment2.text = requireArguments().getString(NEW_TEXT_EXTRA_KEY)
+        val newText = arguments?.getString(NEW_TEXT_EXTRA_KEY)
+        if (!newText.isNullOrEmpty()) {
+            binding.textFragment2.text = newText
+        }
         binding.backToFragment1.setOnClickListener {
-            (requireActivity() as Fragment2ButtonClickListener).backToFragment1()
+            listener?.backToFragment1()
         }
 
         binding.openNewFragment1.setOnClickListener {
-//            (requireActivity() as Fragment2ButtonClickListener).openFragment1Again()
-            (requireActivity() as Fragment2ButtonClickListener)
-                .openFragment2AgainWithNewText(newText = "HELLO FROM FRAGMENT 2")
+            listener?.openFragment1Again()
+            //            (requireActivity() as Fragment2ButtonClickListener)
+            //                .openFragment2AgainWithNewText(newText = "HELLO FROM FRAGMENT 2")
 
         }
     }
